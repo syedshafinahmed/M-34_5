@@ -167,10 +167,6 @@ Event Loop → pushes tasks back to Call Stack
 ```
 
 
-
-
-
-
 # ⚡ Differences between  `setTimeout` vs `setInterval`
 
 In JavaScript, `setTimeout` and `setInterval` are two functions used to schedule code execution after a certain delay. While they might seem similar, they work differently.
@@ -198,8 +194,6 @@ This runs after 2 seconds
 ### Key Points:
 - Executes only **once**.
 - Can be canceled using `clearTimeout(timeoutId)`.
-
-
 
 
 ##  `setInterval`
@@ -268,6 +262,79 @@ An async function runs asynchronously, meaning it can pause execution at `await`
 | Use Case        | Simple, immediate tasks | API calls, timers, async operations |
 
 
-# ⚡ What's the error handling strategy for promises that were rejected while awaiting?
+
+# ⚡ Error Handling Strategy for Rejected Promises in `async/await`
+
+When working with JavaScript `async/await`, handling errors from rejected promises is crucial to avoid uncaught exceptions. This guide explains the strategies to handle such errors effectively.
+
+--- 
+## 1. Using `try...catch`
+
+The most common way to handle errors in `async/await` is wrapping the awaited promise in a `try...catch` block.
+
+```javascript
+async function fetchData() {
+  try {
+    const response = await fetch('https://api.example.com/data');
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+```
+### Explanation:
+- If the promise is rejected, the catch block executes.
+- Prevents the program from crashing due to unhandled rejections.
+
+## 2. Handling Multiple Promises with `Promise.allSettled()`
+
+When awaiting multiple promises, use `Promise.allSettled()` to handle both fulfilled and rejected promises without throwing an error immediately.
+
+```javascript
+const promises = [
+  fetch('https://api.example.com/data1'),
+  fetch('https://api.example.com/data2')
+];
+
+const results = await Promise.allSettled(promises);
+
+results.forEach(result => {
+  if (result.status === 'fulfilled') {
+    console.log('Success:', result.value);
+  } else {
+    console.error('Failed:', result.reason);
+  }
+});
+```
+### Explanation:
+- `Promise.all()` rejects immediately on the first failure, but `Promise.allSettled()` waits for all promises and gives individual statuses.
+
+## 3. Inline `.catch()` for Single Promises
+
+You can also handle errors directly on a single promise without `try...catch`.
+
+```javascript
+const data = await fetch('https://api.example.com/data')
+  .then(res => res.json())
+  .catch(error => {
+    console.error('Error fetching data:', error);
+    return null; // Fallback value
+  });
+```
+### Explanation:
+- Useful when you want to continue execution even if the promise fails.
+
+### Key Points:
+- Always handle promise rejections to avoid unhandled promise rejections.
+- Prefer `try...catch` for `async/await` code for clarity.
+- Use `Promise.allSettled()` when running multiple promises concurrently to get full insight.
+- Provide fallback values or error logging to ensure the app remains stable.
+- Rejected promises while using `async/await` can be safely handled using `try...catch`, inline `.catch()`, or `Promise.allSettled()` for multiple promises. Proper error handling ensures smoother, more resilient JavaScript applications.
+
+
+
+
+
 # ⚡ States of Promise
 # ⚡ `.then()` method
