@@ -100,7 +100,7 @@ Event Loop (decides what runs next)
 ```
 
 
-#  How Does JavaScript Handle Asynchronous Calls?
+# ⚡ How Does JavaScript Handle Asynchronous Calls?
 
 JavaScript is **single-threaded**, meaning it can only execute one task at a time.  
 However, it uses the **Event Loop** along with **Web APIs, Callback Queue, and Microtask Queue** to handle asynchronous tasks **without blocking execution**.
@@ -171,9 +171,76 @@ Event Loop → pushes tasks back to Call Stack
 
 
 
+# ⚡ Differences between  `setTimeout` vs `setInterval`
+
+In JavaScript, `setTimeout` and `setInterval` are two functions used to schedule code execution after a certain delay. While they might seem similar, they work differently.
+
+---
+
+##  `setTimeout`
+
+`setTimeout` runs a function **once** after a specified delay (in milliseconds).
+
+**Syntax:**
+```js
+setTimeout(function, delayInMilliseconds);
+```
+### 🔹 Example:
+```bash
+setTimeout(() => {
+  console.log("This runs after 2 seconds");
+}, 2000);
+```
+### 🖥️ Output:
+```bash
+This runs after 2 seconds
+```
+### Key Points:
+- Executes only **once**.
+- Can be canceled using `clearTimeout(timeoutId)`.
 
 
-# Differences between SetTimeOut and SetInterval
+
+
+##  `setInterval`
+
+`setInterval` runs a function repeatedly at specified intervals (in milliseconds).
+
+**Syntax:**
+```js
+setInterval(function, intervalInMilliseconds);
+```
+### 🔹 Example:
+```bash
+const intervalId = setInterval(() => {
+  console.log("This runs every 3 seconds");
+}, 3000);
+```
+### 🖥️ Output:
+```bash
+This runs every 3 seconds
+This runs every 3 seconds
+This runs every 3 seconds
+This runs every 3 seconds
+...
+```
+### Key Points:
+- Executes **multiple times** at regular intervals..
+- Can be stopped using `clearInterval(intervalId)`.
+
+
+###  Main Differences
+
+| Feature        | setTimeout           | setInterval          |
+|----------------|--------------------|--------------------|
+| Execution      | Once               | Repeatedly         |
+| Return Value   | Timeout ID         | Interval ID         |
+| Cancel Method  | `clearTimeout()`   | `clearInterval()`   |
+| Use Case       | Delay a single task | Run tasks repeatedly |
+
+
+
+
 # Differences between async function and a normal function
 # What's the error handling strategy for promises that were rejected while awaiting?
 # States of Promise
