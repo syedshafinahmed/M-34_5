@@ -100,13 +100,79 @@ Event Loop (decides what runs next)
 ```
 
 
+#  How Does JavaScript Handle Asynchronous Calls?
+
+JavaScript is **single-threaded**, meaning it can only execute one task at a time.  
+However, it uses the **Event Loop** along with **Web APIs, Callback Queue, and Microtask Queue** to handle asynchronous tasks **without blocking execution**.
+
+---
+
+## 🔹 The Process
+
+### 1. Call Stack
+   - JavaScript runs code line by line.
+   - When it encounters an async task (like `setTimeout`, HTTP requests, or promises), it passes it to the **Web APIs**.
+
+### 2. Web APIs
+   - Provided by the browser (or Node.js environment).
+   - Handle asynchronous tasks in the background (e.g., timers, network requests).
+   - Once completed, they send callbacks to the appropriate queue.
+
+### 3. Queues
+   - **Callback Queue (Macrotask Queue)** → For tasks like `setTimeout`, event listeners, etc.  
+   - **Microtask Queue** → For promises and `MutationObserver`.  
+   - **Microtasks are always executed before macrotasks** when the call stack is free.
+
+### 4. Event Loop
+   - Constantly checks if the **call stack** is empty.
+   - If yes, it pushes tasks from the **microtask queue** first, then from the **callback queue**.
+   - This ensures smooth asynchronous execution.
+
+---
+
+## 🔹 Example: Asynchronous Behavior in Action
+
+```js
+console.log("Start");
+
+setTimeout(() => {
+  console.log("setTimeout callback");
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log("Promise resolved");
+});
+
+console.log("End");
+```
+## 🖥️ Output:
+```js
+Start
+End
+Promise resolved
+setTimeout callback
+```
+
+## 🔹 Flow Diagram
+```vbnet
+Call Stack
+    ↓
+Web APIs
+    ↓
+Microtask Queue (Promises, MutationObserver)
+    ↓
+Callback Queue (setTimeout, events)
+    ↓
+Event Loop → pushes tasks back to Call Stack
+```
 
 
 
 
 
 
-# How does JS handle Asynchronus call?
+
+
 # Differences between SetTimeOut and SetInterval
 # Differences between async function and a normal function
 # What's the error handling strategy for promises that were rejected while awaiting?
