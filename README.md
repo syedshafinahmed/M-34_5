@@ -332,9 +332,53 @@ const data = await fetch('https://api.example.com/data')
 - Provide fallback values or error logging to ensure the app remains stable.
 - Rejected promises while using `async/await` can be safely handled using `try...catch`, inline `.catch()`, or `Promise.allSettled()` for multiple promises. Proper error handling ensures smoother, more resilient JavaScript applications.
 
-
-
-
-
 # ⚡ States of Promise
+
+A **Promise** in JavaScript represents a value that may be available now, in the future, or never. It is used to handle asynchronous operations.
+
+---
+## A Promise can be in **one of three states**:
+
+### 1. Pending
+   - Initial state of a Promise.  
+   - The operation is not completed yet.  
+   - The Promise is neither fulfilled nor rejected.
+
+### 2. Fulfilled (Resolved)  
+   - The operation completed successfully.  
+   - The Promise has a resulting value.  
+   - Handled using `.then()`.
+
+### 3. Rejected  
+   - The operation failed.  
+   - The Promise has a reason for failure (an error).  
+   - Handled using `.catch()`.
+
+### Example
+
+```javascript
+const myPromise = new Promise((resolve, reject) => {
+    const success = true;
+
+    if (success) {
+        resolve("Operation successful!");
+    } else {
+        reject("Operation failed!");
+    }
+});
+
+myPromise
+    .then(result => console.log(result)) // Runs if fulfilled
+    .catch(error => console.error(error)); // Runs if rejected
+```
+### Overview
+
+| State     | Description            | Method to handle |
+| --------- | ---------------------- | ---------------- |
+| Pending   | Not yet completed      | -                |
+| Fulfilled | Completed successfully | `.then()`        |
+| Rejected  | Failed operation       | `.catch()`       |
+
+
+
 # ⚡ `.then()` method
