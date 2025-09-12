@@ -382,3 +382,43 @@ myPromise
 
 
 # ⚡ `.then()` method
+
+The `.then()` method is used with **Promises** to handle the **successful completion** of an asynchronous operation.
+
+---
+
+### Syntax
+
+```javascript
+promise.then(onFulfilled, onRejected);
+```
+### 🔹 Example:
+```javascript
+let fetchData = new Promise((resolve, reject) => {
+  let data = true; // Simulate success
+  if (data) {
+    resolve("Data fetched successfully!");
+  } else {
+    reject("Failed to fetch data.");
+  }
+});
+
+fetchData
+  .then((message) => {
+    console.log(message); // Runs if promise is fulfilled
+  })
+  .catch((error) => {
+    console.log(error); // Runs if promise is rejected
+  });
+```
+### Explanation:
+- `.then()` always returns a new promise, which allows chaining multiple `.then()` calls.
+- Only handles fulfilled promises; use `.catch()` for errors.
+- Helps keep asynchronous code clean and readable compared to nested callbacks.
+
+
+
+
+
+
+
