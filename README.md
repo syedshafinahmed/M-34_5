@@ -57,6 +57,55 @@ This allows V8 to clean unused memory efficiently **without blocking execution**
  
 
 # ⚡ JS Event Loop
+The **JavaScript Event Loop** is the mechanism that allows JavaScript to handle **asynchronous operations** despite being **single-threaded**.  
+It ensures non-blocking execution by managing tasks, callbacks, and events efficiently.
+
+---
+
+## 🔹 How It Works
+
+### 1. Call Stack
+   - Where JavaScript keeps track of function execution.
+   - Functions are pushed onto the stack when called and popped off when they return.
+
+### 2. Web APIs (Browser / Node APIs)
+   - Handle asynchronous operations like `setTimeout`, HTTP requests, or DOM events.
+   - Once finished, they pass callbacks to the **Callback Queue**.
+
+### 3. Callback Queue (Task Queue)
+   - Stores callbacks waiting to be executed.
+   - Examples: `setTimeout` callbacks, DOM events.
+
+### 4. Microtask Queue
+   - Stores **promises** and `MutationObserver` callbacks.
+   - Always has higher priority than the callback queue.
+
+### 5. Event Loop
+   - Continuously checks:
+     - If the **call stack** is empty.
+     - If yes, it pushes tasks from the **microtask queue** first, then from the **callback queue**.
+
+---
+
+## 🔹 Execution Flow
+```bash
+Call Stack
+    ↓
+Web APIs → Callback Queue
+    ↓
+Microtask Queue (Promises, etc.)
+    ↓
+Event Loop (decides what runs next)
+
+```
+
+
+
+
+
+
+
+
 # How does JS handle Asynchronus call?
 # Differences between SetTimeOut and SetInterval
 # Differences between async function and a normal function
