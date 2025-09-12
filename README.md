@@ -240,8 +240,34 @@ This runs every 3 seconds
 
 
 
+# ⚡ Differences between async function and a normal function
+In JavaScript, functions can be **normal (synchronous)** or **async (asynchronous)**. Understanding the differences is important when handling operations like API calls, timers, or reading files.
 
-# Differences between async function and a normal function
-# What's the error handling strategy for promises that were rejected while awaiting?
-# States of Promise
-# .then() method
+---
+
+## 1. Normal Function
+
+A normal function runs **synchronously**, meaning the code executes **line by line**, waiting for each statement to finish before moving to the next.
+- Runs **line by line**.
+- Returns a **direct value**.
+- Cannot use `await` inside it.
+
+## 2. Async Function
+
+An async function runs asynchronously, meaning it can pause execution at `await` and resume later, without blocking other code.
+- Always **returns a Promise**.
+- Can use `await` to wait for asynchronous operations.
+- Doesn’t block other code while waiting.
+
+## Main Differences
+| Feature         | Normal Function         | Async Function                      |
+| --------------- | ----------------------- | ----------------------------------- |
+| Execution       | Synchronous             | Asynchronous                        |
+| Return Value    | Direct value            | Promise                             |
+| Can use `await` | ❌ No                    | ✅ Yes                               |
+| Use Case        | Simple, immediate tasks | API calls, timers, async operations |
+
+
+# ⚡ What's the error handling strategy for promises that were rejected while awaiting?
+# ⚡ States of Promise
+# ⚡ `.then()` method
